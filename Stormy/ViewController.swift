@@ -30,7 +30,22 @@ class ViewController: UIViewController {
         displayWeather(using: currentWeatherViewModel)
         
         let baseUrl = URL(string: "https://api.darksky.net/forecast/\(darkSkyApiKey)/")
-        let forcasetUrl = URL(string: "37.8267,-122.4233", relativeTo: baseUrl)
+        guard let forcasetUrl = URL(string: "37.8267,-122.4233", relativeTo: baseUrl) else  { return }
+        
+        let configuration = URLSessionConfiguration.default
+        let session = URLSession(configuration: configuration)
+        
+        let request = URLRequest(url: forcasetUrl)
+        
+        print("Log before request on main thread")
+        
+        let dataTask = session.dataTask(with: request) { data, response, error in
+        //background thread, the closure is the callback mechanism
+            print("log inside completion handler")
+        }
+        
+        dataTask.resume()
+        print("log after resume")
     }
     
     func displayWeather(using viewModel: CurrentWeatherViewModel)  {
