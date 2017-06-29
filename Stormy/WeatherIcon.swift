@@ -3,7 +3,7 @@
 //  Stormy
 //
 //  Created by Izzy Ali on 29/06/2017.
-//  Copyright © 2017 Treehouse. All rights reserved.
+//  Copyright © 2017 Treehouse. All rights reserved :)
 //
 
 import UIKit
