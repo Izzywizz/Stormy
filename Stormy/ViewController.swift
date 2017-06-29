@@ -17,16 +17,30 @@ class ViewController: UIViewController {
     @IBOutlet weak var currentSummaryLabel: UILabel!
     @IBOutlet weak var refreshButton: UIButton!
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
+    
+    //MARK: Properties
+    fileprivate let darkSkyApiKey = "b574773056392da27430d15dd605b674"
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
+        
+        let currentWeather = CurrentWeather(temperature: 85.0, humidity: 0.8, precipitationProbability: 0.1, summary: "Hot!", icon: "clear-day")
+        let currentWeatherViewModel = CurrentWeatherViewModel(model: currentWeather)
+        
+        displayWeather(using: currentWeatherViewModel)
+        
+        let baseUrl = URL(string: "https://api.darksky.net/forecast/\(darkSkyApiKey)/")
+        let forcasetUrl = URL(string: "37.8267,-122.4233", relativeTo: baseUrl)
+    }
+    
+    func displayWeather(using viewModel: CurrentWeatherViewModel)  {
+        currentTemperatureLabel.text = viewModel.temperature
+        currentHumidityLabel.text = viewModel.humidity
+        currentPrecipitationLabel.text = viewModel.precipitationProbablity
+        currentSummaryLabel.text = viewModel.summary
+        currentWeatherIcon.image = viewModel.icon
     }
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
 }
 
 
