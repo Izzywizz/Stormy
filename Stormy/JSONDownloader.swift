@@ -22,8 +22,9 @@ class JSONDownloader    {
     
     
     typealias JSON = [String: Any]
+    typealias JSONTaskCompletionHandler = (JSON?, DarkSkyError?) -> Void
     
-    func jsonTask(with request: URLRequest, completionHander completion: @escaping (JSON?, DarkSkyError?) -> Void ) -> URLSessionDataTask {
+    func jsonTask(with request: URLRequest, completionHander completion: @escaping JSONTaskCompletionHandler) -> URLSessionDataTask {
         let task = session.dataTask(with: request)  {
             data, response, error in
             
