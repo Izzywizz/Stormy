@@ -25,9 +25,13 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         let coordinate = Coordinate(latitude: 37.8267, longitude: -122.4333)
         
-        client.getCurrentWeather(at: coordinate) { currentWeather, error in
-            print(currentWeather)
-            print(error)
+        client.getCurrentWeather(at: coordinate) { [unowned self] currentWeather, error in
+            
+            if let currentWeather = currentWeather  {
+                let viewModel = CurrentWeatherViewModel(model: currentWeather)
+                
+                self.displayWeather(using: viewModel)
+            }
         }
         
     }
