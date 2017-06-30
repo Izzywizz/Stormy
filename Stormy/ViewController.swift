@@ -23,18 +23,10 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        let coordinate = Coordinate(latitude: 37.8267, longitude: -122.4333)
-        
-        client.getCurrentWeather(at: coordinate) { [unowned self] currentWeather, error in
-            
-            if let currentWeather = currentWeather  {
-                let viewModel = CurrentWeatherViewModel(model: currentWeather)
-                
-                self.displayWeather(using: viewModel)
-            }
-        }
-        
+        getCurrentWeather()
     }
+    
+    
     
     func displayWeather(using viewModel: CurrentWeatherViewModel)  {
         currentTemperatureLabel.text = viewModel.temperature
@@ -44,6 +36,37 @@ class ViewController: UIViewController {
         currentWeatherIcon.image = viewModel.icon
     }
 
+    @IBAction func getCurrentWeather() {
+        toggleRefreshAnimation(on: true)
+        
+        let coordinate = Coordinate(latitude: 37.8267, longitude: -122.4333)
+
+        client.getCurrentWeather(at: coordinate) { [unowned self]
+            currentWeather, error in
+    
+            if error == nil {
+                if let currentWeather = currentWeather  {
+                    let viewModel = CurrentWeatherViewModel(model: currentWeather)
+                    self.displayWeather(using: viewModel)
+                    self.toggleRefreshAnimation(on: false)
+                }
+            } else {
+                let alertViewController = UIAlertController(title: "Error Received", message: "There has been an error with the app \(error)", preferredStyle: .alert)
+                let dismiss = UIAlertAction(title: "Dismiss", style: .default, handler: nil)
+                alertViewController.addAction(dismiss)
+            }
+        }
+    }
+    
+    func toggleRefreshAnimation(on: Bool) {
+        refreshButton.isHidden = on
+        
+        if on {
+            activityIndicator.startAnimating()
+        } else {
+            activityIndicator.stopAnimating()
+        }
+    }
 }
 
 
