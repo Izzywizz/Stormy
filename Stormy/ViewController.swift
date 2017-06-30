@@ -10,6 +10,7 @@ import UIKit
 
 class ViewController: UIViewController {
 
+    //MARK: Outlets
     @IBOutlet weak var currentTemperatureLabel: UILabel!
     @IBOutlet weak var currentHumidityLabel: UILabel!
     @IBOutlet weak var currentPrecipitationLabel: UILabel!
@@ -18,10 +19,17 @@ class ViewController: UIViewController {
     @IBOutlet weak var refreshButton: UIButton!
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     
-    //MARK: Properties
-
+    let client = DarkSkyAPIClient()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        let coordinate = Coordinate(latitude: 37.8267, longitude: -122.4333)
+        
+        client.getCurrentWeather(at: coordinate) { currentWeather, error in
+            print(currentWeather)
+            print(error)
+        }
+        
     }
     
     func displayWeather(using viewModel: CurrentWeatherViewModel)  {

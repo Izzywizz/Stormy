@@ -25,6 +25,7 @@ class DarkSkyAPIClient {
             completion(nil, .invalidUrl)
             return
         }
+        
         let request = URLRequest(url: url)
         
         let task = downloader.jsonTask(with: request) {

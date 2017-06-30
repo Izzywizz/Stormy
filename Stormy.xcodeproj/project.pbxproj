@@ -78,8 +78,8 @@
 				455CDE0A1F053AC7004AA5FE /* WeatherIcon.swift */,
 				455CDE0C1F054252004AA5FE /* CurrentWeatherViewModel.swift */,
 				45D4534E1F063D9F002690E8 /* JSONDownloader.swift */,
-				45D453501F064407002690E8 /* DarkSkyError.swift */,
 				45D453521F065FED002690E8 /* DarkSkyAPIClient.swift */,
+				45D453501F064407002690E8 /* DarkSkyError.swift */,
 				45D453541F0662D4002690E8 /* Coordinate.swift */,
 			);
 			path = Stormy;
